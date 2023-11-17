@@ -7,6 +7,11 @@ import Input from "./Input";
 import PostCard from "./PostCard";
 import Select from "./Select";
 import Login from "./Login";
+import RichTextEditior from "./RichTextEditior";
+import Button from "./Button";
+import SignUp from "./SignUp";
+import PostForm from "./PostForm/PostForm";
+import AuthLayout from "./AuthLayout";
 
 export {
   Header,
@@ -18,4 +23,9 @@ export {
   PostCard,
   Select,
   Login,
+  RichTextEditior,
+  SignUp,
+  PostForm,
+  AuthLayout,
+  Button,
 };
