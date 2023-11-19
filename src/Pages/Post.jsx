@@ -17,7 +17,7 @@ export default function Post() {
       appwriteService.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
-          console.log("post", post);
+          //console.log("post", post);
         } else navigate("/");
       });
     } else navigate("/");
@@ -43,9 +43,9 @@ export default function Post() {
   };
 
   const isAuthor = post && userData ? post.userid === userData.$id : false;
-  console.log("ISAUTHOR", isAuthor);
+  //console.log("ISAUTHOR", isAuthor);
 
-  console.log("userData", userData);
+  //console.log("userData", userData);
 
   return post ? (
     <div className="py-8">
