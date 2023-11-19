@@ -47,7 +47,7 @@ const PostForm = ({ post }) => {
       //console.log("file:", file);
 
       if (file) {
-        const fileId = file.$id;
+        const fileId = file?.$id;
         data.featuredimage = fileId;
         //console.log("DATA", data);
         const dbPost = await appwriteService.createPost({
@@ -82,7 +82,7 @@ const PostForm = ({ post }) => {
 
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
-
+  const previewImage = appwriteService.getFilePreview(post?.featuredimage);
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
@@ -124,7 +124,7 @@ const PostForm = ({ post }) => {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredimage)}
+              src={previewImage ? previewImage : "test"}
               alt={post.title}
               className="rounded-lg"
             />
