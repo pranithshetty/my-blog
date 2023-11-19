@@ -48,7 +48,7 @@ const SignUp = () => {
             Sign In
           </Link>
         </p>
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>};
+        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
         <form onSubmit={handleSubmit(create)}>
           <div className="space-y-5">
             <Input label="Full Name:" placeholder="Enter your full name" />
