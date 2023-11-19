@@ -85,7 +85,7 @@ const PostForm = ({ post }) => {
 
   //preview image
   const previewImage = appwriteService.getFilePreview(
-    post ? post.featuredimage : ""
+    post.featuredimage ? post.featuredimage : ""
   );
 
   return (
