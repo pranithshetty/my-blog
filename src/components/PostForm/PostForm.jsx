@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const PostForm = ({ post }) => {
+  //console.log("post", post);
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -17,9 +18,10 @@ const PostForm = ({ post }) => {
       },
     });
 
+  // console.log("getValues", getValues()); //op:""
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
-
+  console.log("userData", userData);
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
@@ -45,15 +47,12 @@ const PostForm = ({ post }) => {
       if (file) {
         const fileId = file.$id;
         data.featuredimage = fileId;
-        console.log("data:", data);
+        console.log("DATA", data);
         const dbPost = await appwriteService.createPost({
           ...data,
           userid: userData.$id,
         });
-        console.log("data2:", {
-          ...data,
-          userid: userData.$id,
-        });
+        console.log("DBPOST", dbPost);
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -90,6 +89,7 @@ const PostForm = ({ post }) => {
           placeholder="Title"
           className="mb-4"
           {...register("title", { required: true })}
+          //value={post ? post.title : ""}
         />
         <Input
           label="Slug :"
@@ -101,12 +101,14 @@ const PostForm = ({ post }) => {
               shouldValidate: true,
             });
           }}
+          // value={post ? post.title : ""}
         />
         <RichTextEditior
           label="Content :"
           name="content"
           control={control}
-          defaultValue={getValues("content")}
+          //defaultValue={getValues("content")}
+          defaultValue={post ? post.content : ""}
         />
       </div>
       <div className="w-1/3 px-2">
@@ -120,7 +122,7 @@ const PostForm = ({ post }) => {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={appwriteService.getFilePreview(post.featuredimage)}
               alt={post.title}
               className="rounded-lg"
             />

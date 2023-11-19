@@ -10,7 +10,7 @@ const EditPosts = () => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
         if (post) {
-          setPosts(post.do);
+          setPosts(post);
         }
       });
     } else {
