@@ -14,7 +14,7 @@ const Home = () => {
       }
     });
   }, []);
-  console.log("Posts:", posts);
+  //console.log("Posts:", posts);
   if (posts.length === 0) {
     return (
       <div className="w-full py-8 mt-4 text-center">
