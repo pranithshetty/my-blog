@@ -19,29 +19,44 @@ const PostForm = ({ post }) => {
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
+
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
         : null;
+
       if (file) {
-        await appwriteService.deleteFile(post.featuredImage);
+        appwriteService.deleteFile(post.featuredImage);
       }
+
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
+
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file = data.image[0]
-        ? await appwriteService.uploadFile(data.image[0])
-        : null;
+      const file = await appwriteService.uploadFile(data.image[0]);
+      console.log("file:", file);
+
       if (file) {
-        const fileID = file.$id;
-        data.featuredImage = fileID;
-        await appwriteService.createPost({ ...data, userId: userData.$id }); //userdata from store
+        const fileId = file.$id;
+        data.featuredimage = fileId;
+        console.log("data:", data);
+        const dbPost = await appwriteService.createPost({
+          ...data,
+          userid: userData.$id,
+        });
+        console.log("data2:", {
+          ...data,
+          userid: userData.$id,
+        });
+        if (dbPost) {
+          navigate(`/post/${dbPost.$id}`);
+        }
       }
     }
   };
@@ -59,14 +74,14 @@ const PostForm = ({ post }) => {
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name == "title") {
-        setValue("slug", slugTransform(value.title, { shouldValidate: true }));
+      if (name === "title") {
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
-    return () => {
-      subscription.unsubscribe();
-    };
+
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
+
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
