@@ -82,7 +82,12 @@ const PostForm = ({ post }) => {
 
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
-  const previewImage = appwriteService.getFilePreview(post?.featuredimage);
+
+  //preview image
+  const previewImage = appwriteService.getFilePreview(
+    post ? post.featuredimage : ""
+  );
+
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">

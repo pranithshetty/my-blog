@@ -46,7 +46,9 @@ export default function Post() {
   //console.log("ISAUTHOR", isAuthor);
 
   //console.log("userData", userData);
-  const previewImage = appwriteService.getFilePreview(post?.featuredimage);
+  const previewImage = appwriteService.getFilePreview(
+    post ? post.featuredimage : ""
+  );
   return post ? (
     <div className="py-8">
       <Container>
