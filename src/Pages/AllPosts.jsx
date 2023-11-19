@@ -6,20 +6,22 @@ import { useEffect } from "react";
 const AllPosts = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    app;
+    getAllPosts();
   }, []);
 
-  appwriteService
-    .getPosts(
-      [].then((posts) => {
+  const getAllPosts = () => {
+    appwriteService
+      .getPosts([])
+      .then((posts) => {
         if (posts) {
           setPosts(posts.documents);
         }
       })
-    )
-    .catch((error) => {
-      console.log(error.message);
-    });
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div className="w-full py-8">
       <Container>
