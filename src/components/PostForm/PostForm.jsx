@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const PostForm = ({ post }) => {
-  //console.log("post", post);
+  console.log("post", post);
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
@@ -29,12 +29,12 @@ const PostForm = ({ post }) => {
         : null;
 
       if (file) {
-        appwriteService.deleteFile(post.featuredImage);
+        appwriteService.deleteFile(post.featuredimage);
       }
 
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImage: file ? file.$id : undefined,
+        featuredimage: file ? file.$id : undefined,
       });
 
       if (dbPost) {
