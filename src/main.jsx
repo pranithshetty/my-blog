@@ -8,15 +8,15 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthLayout, Login } from "./components/index.js";
 import SignUp from "./Pages/SignUp";
 import Home from "./Pages/Home.jsx";
-//import AddPost from "./Pages/AddPost";
-// import EditPosts from "./Pages/EditPosts";
+import AddPost from "./Pages/AddPost";
+import EditPosts from "./Pages/EditPosts";
 // import AllPosts from "./Pages/AllPosts";
 import Post from "./Pages/Post";
 import PageNotFound from "./components/PageNotFound.jsx";
 import Skeleton from "./components/Skeleton.jsx";
 
-const AddPost = lazy(() => import("./Pages/AddPost"));
-const EditPosts = lazy(() => import("./Pages/EditPosts"));
+// const AddPost = lazy(() => import("./Pages/AddPost"));
+// const EditPosts = lazy(() => import("./Pages/EditPosts"));
 const AllPosts = lazy(() => import("./Pages/AllPosts"));
 //const Post = lazy(() => import("./Pages/Post"));
 
@@ -62,9 +62,7 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <Suspense fallback={<Skeleton />}>
-              <AddPost />
-            </Suspense>
+            <AddPost />
           </AuthLayout>
         ),
       },
@@ -73,9 +71,7 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <Suspense fallback={<Skeleton />}>
-              <EditPosts />
-            </Suspense>
+            <EditPosts />
           </AuthLayout>
         ),
       },
