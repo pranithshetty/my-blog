@@ -24,15 +24,15 @@ export default function Post() {
     } else navigate("/");
   }, [slug, navigate]);
 
-  useEffect(() => {
-    if (slug) {
-      appwriteService.getPost(slug).then((post) => {
-        if (post) {
-          setPost(post);
-        } else navigate("/");
-      });
-    } else navigate("/");
-  }, []);
+  // useEffect(() => {
+  //   if (slug) {
+  //     appwriteService.getPost(slug).then((post) => {
+  //       if (post) {
+  //         setPost(post);
+  //       } else navigate("/");
+  //     });
+  //   } else navigate("/");
+  // }, []);
 
   const deletePost = () => {
     appwriteService.deletePost(post.$id).then((status) => {
@@ -43,7 +43,7 @@ export default function Post() {
     });
   };
 
-  const isAuthor = post && userData ? post.userid === userData.$id : false;
+  const isAuthor = post && userData ? post?.userid === userData?.$id : false;
   //console.log("ISAUTHOR", isAuthor);
 
   //console.log("userData", userData);
