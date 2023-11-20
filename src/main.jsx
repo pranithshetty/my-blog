@@ -1,22 +1,30 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import store from "./store/store.js";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./Pages/Home.jsx";
 import { AuthLayout, Login } from "./components/index.js";
-import AddPost from "./Pages/AddPost";
 import SignUp from "./Pages/SignUp";
-import EditPosts from "./Pages/EditPosts";
-import Post from "./Pages/Post";
-import AllPosts from "./Pages/AllPosts";
+import Home from "./Pages/Home.jsx";
+//import AddPost from "./Pages/AddPost";
+// import EditPosts from "./Pages/EditPosts";
+// import AllPosts from "./Pages/AllPosts";
+//import Post from "./Pages/Post";
+import PageNotFound from "./components/PageNotFound.jsx";
+import Skeleton from "./components/Skeleton.jsx";
+
+const AddPost = lazy(() => import("./Pages/AddPost"));
+const EditPosts = lazy(() => import("./Pages/EditPosts"));
+const AllPosts = lazy(() => import("./Pages/AllPosts"));
+const Post = lazy(() => import("./Pages/Post"));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <PageNotFound />,
     children: [
       {
         path: "/",
@@ -43,7 +51,9 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <AllPosts />
+            <Suspense fallback={<Skeleton />}>
+              <AllPosts />
+            </Suspense>
           </AuthLayout>
         ),
       },
@@ -52,7 +62,9 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <AddPost />
+            <Suspense fallback={<Skeleton />}>
+              <AddPost />
+            </Suspense>
           </AuthLayout>
         ),
       },
@@ -61,13 +73,19 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             {" "}
-            <EditPosts />
+            <Suspense fallback={<Skeleton />}>
+              <EditPosts />
+            </Suspense>
           </AuthLayout>
         ),
       },
       {
         path: "/post/:slug",
-        element: <Post />,
+        element: (
+          <Suspense fallback={<Skeleton />}>
+            <Post />
+          </Suspense>
+        ),
       },
     ],
   },

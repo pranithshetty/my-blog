@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { login, logout } from "./store/authSlice";
 import { Header, Footer } from "./components";
 import { Outlet } from "react-router-dom";
+import Skeleton from "./components/Skeleton";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
